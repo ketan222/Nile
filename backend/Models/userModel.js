@@ -52,15 +52,15 @@ const userSchema = new mongoose.Schema({
     },
     cart:[{
         type: mongoose.Schema.ObjectId,
-        ref: Products,
+        ref: 'Products',
     }],
     wishList:[{
         type: mongoose.Schema.ObjectId,
-        ref: Products,
+        ref: 'Products',
     }],
     orderHistory:[{
         type: mongoose.Schema.ObjectId,
-        ref: Products,
+        ref: 'Products',
     }],
 },
 {

@@ -49,7 +49,7 @@ const sellerSchema = new mongoose.Schema({
     orders: [{
         product: {
             type: mongoose.Schema.ObjectId,
-            ref: Products,
+            ref: 'Products',
             required: true,
         },
         quantity: {
@@ -64,11 +64,11 @@ const sellerSchema = new mongoose.Schema({
     }],
     rating:[{
         type: mongoose.Schema.ObjectId,
-        ref: Products,
+        ref: 'Products',
     }],
     reviews:[{
         type: mongoose.Schema.ObjectId,
-        ref: SellerReviews,
+        ref: 'SellerReviews',
     }],
     createdAt:{
         type: Date,

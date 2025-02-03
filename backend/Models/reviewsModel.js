@@ -18,14 +18,14 @@ const reviewSchema = mongoose.Schema({
     product:
         {
             type: mongoose.Schema.ObjectId,
-            ref: Products,
+            ref: 'Products',
             required:[true, 'Review must belong to a tour.']
         }
     ,
     user:
         {
             type: mongoose.Schema.ObjectId,
-            ref: User,
+            ref: 'User',
             required:[true, 'Review must belong to a user']
         }
     

@@ -1,5 +1,6 @@
 const express = require("express");
 const rateLimit = require('express-rate-limit');
+const userRouter = require(`./Router/userRouter.js`);
 
 
 // Limit req from same IP
@@ -12,6 +13,8 @@ const limiter = rateLimit({
 
 const app = express();
 app.use(express.json());
+
+app.use('/api/user', userRouter);
 
 app.use('/api/',limiter);
 

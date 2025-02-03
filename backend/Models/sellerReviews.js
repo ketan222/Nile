@@ -18,14 +18,14 @@ const sellerReviewSchema = mongoose.Schema({
     seller:
         {
             type: mongoose.Schema.ObjectId,
-            ref: Seller,
+            ref: 'Seller',
             required:[true, 'Review must belong to a seller.']
         }
     ,
     user:
         {
             type: mongoose.Schema.ObjectId,
-            ref: User,
+            ref: 'User',
             required:[true, 'Review must belong to a user']
         }
     
