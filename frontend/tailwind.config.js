@@ -27,8 +27,8 @@ export default {
       })(),
       colors: {
         primary: '#8ce99a', // Custom color
-        secondary: '#f2f2f2',
-        customGreen: '',
+        secondary: '#f5f5f5',
+        textPrimary: '#343a40',
       },
     },
   },

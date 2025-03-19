@@ -10,7 +10,7 @@ const sellerSchema = new mongoose.Schema({
         required: [true, 'Enter the userName'],
         trim: true,
         maxlength: 20,
-    },
+    }, 
     email:{
         type: String,
         required:[true, 'Enter the email'],
@@ -28,7 +28,7 @@ const sellerSchema = new mongoose.Schema({
         type:String,
         required:[true, 'Enter the confirm password'],
         validate:{
-            validator: function(val){
+            validator: function(val){ 
                 if(this.password === val){
                     return true;
                 }
@@ -46,6 +46,11 @@ const sellerSchema = new mongoose.Schema({
         type:String,
         required:[true, 'Enter the business name'],
     },
+    product:[{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Products',
+        required: true,
+    }],
     orders: [{
         product: {
             type: mongoose.Schema.ObjectId,
@@ -62,6 +67,9 @@ const sellerSchema = new mongoose.Schema({
             default: Date.now,
         },
     }],
+    passwordChangedAt:Date,
+    passwordResetToken:String,
+    passwordResetExpires: Date,
     rating:[{
         type: mongoose.Schema.ObjectId,
         ref: 'Products',
@@ -78,7 +86,8 @@ const sellerSchema = new mongoose.Schema({
         type:Boolean,
         default: true,
         select: false,
-    }
+    },
+
 },
 {
     toJSON:{virtuals: true},
@@ -92,6 +101,42 @@ sellerSchema.pre('save', async function(next){
     }
     next();
 })
+sellerSchema.pre('save', async function(next){
+    if(!this.isModified("password")) return next;
+    this.password = await bcrypt.hash(this.password, 12);
+    this.passwordConfirm = undefined;
+    this.passwordChangedAt = Date.now();
+    next();
+})
+sellerSchema.pre(/^find/, function(next){
+    // filter out all the active users only
+    this.find({active: true});
+    next();
+});
+sellerSchema.methods.chkPassword = async function(candidatePassword, userPassword){
+    return await bcrypt.compare(candidatePassword, userPassword);
+}
+sellerSchema.methods.changedPasswordAfter = function(JWTdate){
+    if(this.passwordChangedAt){
+        const lastDate = parseInt((this.passwordChangedAt.getTime() / 1000), 10);
+        // console.log(lastDate +  " " + JWTdate);
+        if(lastDate > JWTdate) return true;
+    }
+    return false;
+}
+// sellerSchema.methods.createPasswordResetToken = function(){
+//     const resetToken = crypto.randomBytes(32).toString('hex');
+
+
+//     this.passwordResetToken = 
+//         crypto.createHash('sha256')
+//         .update(resetToken)
+//         .digest('hex');
+//     // console.log({resetToken},this.passwordResetToken);
+//     this.passwordResetExpires = Date.now() + 10*60*1000;
+//     // this.save();
+//     return  resetToken;
+// }
 
 
 const Seller = mongoose.model('Seller', sellerSchema);
