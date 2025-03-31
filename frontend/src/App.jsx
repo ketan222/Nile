@@ -3,10 +3,12 @@
 // import viteLogo from '/vite.svg'
 // import Login from './Login'
 // import SignUp from './SignUp'
-// import NavBarBuyer from './components/NavBarBuyer'
+import NavBarBuyer from './components/NavBarBuyer'
 
 import './App.css'
 import Category from './components/Category'
+import Hero from './components/Hero'
+import Recommendations from './components/Recommendations'
 // import Assurances from './components/Assurances'
 // import UserFooter from './components/userFotter'
 
@@ -17,10 +19,12 @@ function App() {
     <>
       {/* <Login/> */}
       {/* <SignUp/> */}
-      {/* <NavBarBuyer/> */}
+      <NavBarBuyer/>
       {/* <UserFooter/> */}
       {/* <Assurances/> */}
-      <Category/>
+      {/* <Category/> */}
+      {/* <Recommendations/> */}
+      <Hero/>
       {/* <div className="video-container">
         <iframe
           width="560"

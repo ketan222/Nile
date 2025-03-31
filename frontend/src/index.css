@@ -1,8 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
-
-
-
+@font-face {
+    font-family: 'TC October';
+    src: url('./fonts/TC-October.otf') format('opentype'); /* OTF format */
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  /* Tailwind Directives */
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  

@@ -5,6 +5,9 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        tcoctober: ['TC October', 'sans-serif'],
+      },
       width: (() => {
         const widths = {
           15: '2.50rem',
