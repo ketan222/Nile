@@ -32,6 +32,7 @@ export default {
         primary: '#8ce99a', // Custom color
         secondary: '#f5f5f5',
         textPrimary: '#343a40',
+        textSecondary: '#737373'
       },
     },
   },

@@ -3,28 +3,37 @@
 // import viteLogo from '/vite.svg'
 // import Login from './Login'
 // import SignUp from './SignUp'
-import NavBarBuyer from './components/NavBarBuyer'
+// import NavBarBuyer from './components/NavBarBuyer'
+import NavBarSeller from "./components/NavBarSeller";
 
-import './App.css'
-import Category from './components/Category'
-import Hero from './components/Hero'
-import Recommendations from './components/Recommendations'
+import "./App.css";
+import SellerInfo from "./components/SellerInfo";
+// import Category from './components/Category'
+// import Hero from './components/Hero'
+// import Recommendations from './components/Recommendations'
 // import Assurances from './components/Assurances'
 // import UserFooter from './components/userFotter'
+import Product from "./pages/Product";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   // const [count, setCount] = useState(0)
 
   return (
     <>
+      {/* <Product /> */}
+      <SearchPage />
+      {/* <Home/> */}
+      {/* <NavBarSeller/> */}
+      {/* <SellerInfo/> */}
       {/* <Login/> */}
       {/* <SignUp/> */}
-      <NavBarBuyer/>
+      {/* <NavBarBuyer/> */}
       {/* <UserFooter/> */}
       {/* <Assurances/> */}
       {/* <Category/> */}
       {/* <Recommendations/> */}
-      <Hero/>
+      {/* <Hero/> */}
       {/* <div className="video-container">
         <iframe
           width="560"
@@ -36,9 +45,8 @@ function App() {
           allowFullScreen
         ></iframe>
       </div> */}
-
     </>
-  )
+  );
 }
- 
-export default App
+
+export default App;

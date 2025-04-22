@@ -10,3 +10,18 @@
   @tailwind components;
   @tailwind utilities;
   
+
+
+  ion-icon {
+    color: #8ce99a;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hidden {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+  
