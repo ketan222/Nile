@@ -1,50 +1,53 @@
+import { Route, Routes } from "react-router-dom";
+
 // import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
-// import Login from './Login'
-// import SignUp from './SignUp'
-// import NavBarBuyer from './components/NavBarBuyer'
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import SignUpSeller from "./pages/SignUpSeller";
+import LoginSeller from "./pages/LoginSeller";
+import NavBarBuyer from "./components/NavBarBuyer";
 import NavBarSeller from "./components/NavBarSeller";
 
 import "./App.css";
-import SellerInfo from "./components/SellerInfo";
-// import Category from './components/Category'
-// import Hero from './components/Hero'
-// import Recommendations from './components/Recommendations'
-// import Assurances from './components/Assurances'
+import SellerInfo from "./pages/SellerInfo";
+import Category from "./components/Category";
+import Hero from "./components/Hero";
+import Recommendations from "./components/Recommendations";
+import Assurances from "./components/Assurances";
 // import UserFooter from './components/userFotter'
 import Product from "./pages/Product";
 import SearchPage from "./pages/SearchPage";
+import Home from "./pages/Home";
+import RouteProtector from "./routeProtector/RouteProtector";
+import { createContext } from "react";
 
+//
 function App() {
   // const [count, setCount] = useState(0)
 
   return (
     <>
-      {/* <Product /> */}
-      <SearchPage />
-      {/* <Home/> */}
-      {/* <NavBarSeller/> */}
-      {/* <SellerInfo/> */}
-      {/* <Login/> */}
-      {/* <SignUp/> */}
-      {/* <NavBarBuyer/> */}
-      {/* <UserFooter/> */}
-      {/* <Assurances/> */}
-      {/* <Category/> */}
-      {/* <Recommendations/> */}
-      {/* <Hero/> */}
-      {/* <div className="video-container">
-        <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/YaXPRqUwItQ"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-      </div> */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/home"
+          element={
+            <RouteProtector>
+              <Home />
+            </RouteProtector>
+          }
+        />
+        <Route path="/getProduct/:productId" element={<Product />} />
+        <Route path="/searchPage/:filter" element={<SearchPage />} />
+        <Route path="/searchPage" element={<SearchPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/loginSeller" element={<LoginSeller />} />
+        <Route path="/signUpSeller" element={<SignUpSeller />} />
+        <Route path="/sellerInfo" element={<SellerInfo />} />
+      </Routes>
     </>
   );
 }
