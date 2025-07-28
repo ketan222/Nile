@@ -21,7 +21,10 @@ import Product from "./pages/Product";
 import SearchPage from "./pages/SearchPage";
 import Home from "./pages/Home";
 import RouteProtector from "./routeProtector/RouteProtector";
+import Cart from "./pages/Cart";
+import BuyNow from "./pages/BuyNow";
 import { createContext } from "react";
+import Orders from "./pages/Orders";
 
 //
 function App() {
@@ -30,7 +33,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Orders />} />
         <Route
           path="/home"
           element={
@@ -47,6 +50,9 @@ function App() {
         <Route path="/loginSeller" element={<LoginSeller />} />
         <Route path="/signUpSeller" element={<SignUpSeller />} />
         <Route path="/sellerInfo" element={<SellerInfo />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/BuyNow" element={<BuyNow />} />
+        <Route path="/orders" element={<Orders />} />
       </Routes>
     </>
   );

@@ -11,6 +11,15 @@ function ContextProvider({ children }) {
 
   const [search, setSearch] = useState("");
 
+  const [cart, setCart] = useState([]);
+
+  function setProductToBuy(product) {
+    setCart(product);
+  }
+  function emptyProductToBuy() {
+    setCart([]);
+  }
+
   function setSearchProduct(value) {
     setSearch(value);
   }
@@ -65,6 +74,9 @@ function ContextProvider({ children }) {
         search,
         clearSearchProduct,
         setSearchProduct,
+        emptyProductToBuy,
+        setProductToBuy,
+        cart,
       }}
     >
       {children}

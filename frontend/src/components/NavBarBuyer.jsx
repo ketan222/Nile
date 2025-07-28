@@ -21,7 +21,7 @@ function NavBar() {
           Products
         </Link>
         <Link className="">My Account</Link>
-        <Link className="rounded-full">
+        <Link to="/cart" className="rounded-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

@@ -10,7 +10,7 @@ export default function SearchPageComponent({ product, onClick }) {
       onClick={onClick}
       className="flex flex-row border-b-2 border-black w-full p-2 md:p-6 lg:p-10 gap-2 md:gap-6 lg:gap-10 justify-evenly items-center cursor-pointer"
     >
-      <div className="min-h-28 max-h-28 md:min-h-40 md:max-h-40 md:h-40 min-w-28 max-w-28 md:min-w-40 md:max-w-40 md:w-40 ">
+      <div className="h-20 w-20  md:min-h-40 md:max-h-40 md:h-40 md:min-w-40 md:max-w-40 md:w-40  ">
         <img
           src={`${product.productImage[0]}`}
           alt="Product"
@@ -19,8 +19,12 @@ export default function SearchPageComponent({ product, onClick }) {
       </div>
       <div className=" flex flex-col w-60p ">
         <header className="flex flex-col  items-start gap-1 h-40">
-          <div className="text-lg md:text-xl lg:text-2xl font-bold ">
-            {product.productName}
+          <div className="text-base md:text-xl lg:text-2xl font-semibold text-left">
+            {product.productName.split("").map((word, index) => {
+              if (index > 20) return null;
+              return word;
+            })}
+            ...
           </div>
           <div className="flex flex-col lg:flex-row lg:gap-5 ">
             <div className="text-[14px] md:text-[16px] lg:text-[20px] flex justify-start items-center lg:gap-1">
@@ -42,11 +46,15 @@ export default function SearchPageComponent({ product, onClick }) {
             </div>
           </div>
           <div className="text-xs md:text-sm lg:text-base text-left overflow-scroll scrollbar-hidden">
-            {product.description}
+            {product.description.split("").map((word, index) => {
+              if (index > 200) return null;
+              return word;
+            })}
+            ...
           </div>
         </header>
       </div>
-      <div className="flex flex-col flex-grow h-40 justify-start items-center">
+      <div className="flex flex-col w-[15%] h-40 justify-start items-center">
         <div className="text-xl md:text-2xl lg:text-4xl font-bold w-full flex flex-row justify-start items-center">
           {product.price - (product.price * product.discount) / 100}$
         </div>

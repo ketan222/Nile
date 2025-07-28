@@ -18,30 +18,38 @@ export default function AddProduct({ removeWindow }) {
     brandName: "",
   });
   async function handleAddProduct(e) {
+    // console.log("HERE");
     e.preventDefault();
     setProduct({
       ...product,
       productCategory: [...tags],
       productImage: [...fileName],
-    })
-    try{
+    });
+    try {
       const token = localStorage.getItem("seller-jwt");
-      if( !token || isTokenExpired(token) ){}
-      const res = await fetch("http://127.0.0.1:8000/api/product/addProduct",{
-        method:"POST",
-        headers:{
+      if (!token || isTokenExpired(token)) {
+      }
+      const res = await fetch("http://127.0.0.1:8000/api/product/addProduct", {
+        method: "POST",
+        headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(product)
+        body: JSON.stringify(product),
       });
-      if(!res.ok){
+      if (!res.ok) {
         throw new Error("Failed to add product");
       }
       removeWindow();
-    }catch(err){
+
+      alert(
+        "Product added successfully, navigate to update product to update the product stock and other details"
+      );
+      // navigate("/sellerInfo");
+    } catch (err) {
       console.log(err);
     }
+  }
   return (
     <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85vw] md:w-[70vw] h-[80vh] bg-white shadow-lg rounded-xl flex flex-col p-10">
       <div className="flex flex-row justify-end items-center ">
@@ -69,20 +77,26 @@ export default function AddProduct({ removeWindow }) {
           className="px-3 h-full rounded-lg bg-secondary text-xs md:text-base lg:text-lg outline-none"
           placeholder="Product Name"
           value={product.productName}
-          onChange={(e) => setProduct({ ...product, productName: e.target.value })}
+          onChange={(e) =>
+            setProduct({ ...product, productName: e.target.value })
+          }
         ></input>
         <textarea
           className="px-3 py-2 h-full rounded-lg bg-secondary text-xs md:text-base lg:text-lg row-span-2 resize-none outline-none"
           placeholder="Product Specification"
           value={product.productSpecification}
-          onChange={(e) => setProduct({ ...product, productSpecification: e.target.value })}
+          onChange={(e) =>
+            setProduct({ ...product, productSpecification: e.target.value })
+          }
         ></textarea>
         <div className=" w-full h-full flex flex-row justify-between gap-6 text-xs md:text-base lg:text-lg">
           <input
             className="px-3 h-full w-50p rounded-lg bg-secondary  outline-none"
             placeholder="Brand Name"
             value={product.brandName}
-            onChange={(e) => setProduct({ ...product, brandName: e.target.value })}
+            onChange={(e) =>
+              setProduct({ ...product, brandName: e.target.value })
+            }
           ></input>
           <input
             className="px-3 h-full w-50p rounded-lg bg-secondary  outline-none"
@@ -96,7 +110,9 @@ export default function AddProduct({ removeWindow }) {
           className="px-3 h-full rounded-lg bg-secondary text-xs md:text-base lg:text-lg outline-none"
           placeholder="Product Description"
           value={product.productDescription}
-          onChange={(e) => setProduct({ ...product, productDescription: e.target.value })}
+          onChange={(e) =>
+            setProduct({ ...product, productDescription: e.target.value })
+          }
         ></input>
 
         <div className="  w-full h-full flex flex-row justify-between gap-6 text-xs md:text-base lg:text-lg">
@@ -104,13 +120,17 @@ export default function AddProduct({ removeWindow }) {
             className="px-3 h-full w-50p rounded-lg bg-secondary outline-none"
             placeholder="Price"
             value={product.productPrice}
-            onChange={(e) => setProduct({ ...product, productPrice: e.target.value })}
+            onChange={(e) =>
+              setProduct({ ...product, productPrice: e.target.value })
+            }
           ></input>
           <input
             className="px-3 h-full w-50p rounded-lg bg-secondary outline-none"
             placeholder="Discount%"
             value={product.discount}
-            onChange={(e) => setProduct({ ...product, discount: e.target.value })}
+            onChange={(e) =>
+              setProduct({ ...product, discount: e.target.value })
+            }
           ></input>
         </div>
         <div className="  w-full h-full flex flex-row justify-between gap-6">
@@ -121,7 +141,10 @@ export default function AddProduct({ removeWindow }) {
               usage={"file"}
             />
           </div>
-          <div className="px-3 h-full w-50p rounded-lg bg-primary text-sm md:text-base lg:text-xl font-bold flex justify-center items-center">
+          <div
+            onClick={(e) => handleAddProduct(e)}
+            className="px-3 h-full w-50p rounded-lg bg-primary text-sm md:text-base lg:text-xl font-bold flex justify-center items-center"
+          >
             Add Product
           </div>
         </div>

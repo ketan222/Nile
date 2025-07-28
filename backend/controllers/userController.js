@@ -27,17 +27,17 @@ exports.signup = async function (req, res, next) {
     passwordConfirm: req.body.passwordConfirm,
   });
   const token = signToken(newUser._id);
-  // const cookieOptions = {
-  //   expires: new Date(
-  //     Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-  //   ),
-  //   httpOnly: true,
-  //   secure: false, // secure only on prod HTTPS
-  //   sameSite: "lax", // helps with CSRF and cross-site cookie sending
-  // };
-  // res.set("Cache-Control", "no-store"); // No cache at all
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+    secure: false, // secure only on prod HTTPS
+    sameSite: "lax", // helps with CSRF and cross-site cookie sending
+  };
+  res.set("Cache-Control", "no-store"); // No cache at all
 
-  // res.cookie("user-jwt", token, cookieOptions);
+  res.cookie("user-jwt", token, cookieOptions);
   // console.log(req.body.name, req.body.email);
   // console.log("signup");
   res.status(200).json({
@@ -65,12 +65,12 @@ exports.login = async function (req, res, next) {
   // console.log(req.cookies.jwt);
   // res.set("Cache-Control", "no-store"); // No cache at all
 
-  // res.cookie("user-jwt", token, {
-  //   httpOnly: true,
-  //   secure: true,
-  //   sameSite: "None",
-  //   expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-  // });
+  res.cookie("user-jwt", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+  });
   // res.cookie("user-jwt", token, cookieOptions);
   // console.log(req.headers.authorization);
   // console.log(res.rawHeade);
@@ -100,7 +100,7 @@ exports.protect = async (req, res, next) => {
   }
   // console.log(req.cookies);
 
-  console.log(req);
+  // console.log(req);
   console.log("protect");
   if (!token) {
     return res.status(401).json({

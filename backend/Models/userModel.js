@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema(
         quantity: {
           type: Number,
           required: [true, "Enter the quantity for the product"],
-          min: [1, "Quantity cannot be less than 1"],
+          min: [0, "Quantity cannot be less than 1"],
         },
       },
     ],

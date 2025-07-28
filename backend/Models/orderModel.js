@@ -3,8 +3,17 @@ const validator = require("validator");
 
 const order = new mongoose.Schema(
   {
+    name: {
+      type: String,
+      required: [true, "Enter the name of recipient"],
+    },
+    phoneNo: {
+      type: String,
+      required: [true, "Enter the phone number of recipient"],
+    },
     product: {
       type: mongoose.Schema.ObjectId,
+      required: [true, "Order must have a product"],
       ref: "Products",
     },
     quantity: {
@@ -35,10 +44,12 @@ const order = new mongoose.Schema(
     user: {
       type: mongoose.Schema.ObjectId,
       ref: "Users",
+      required: [true, "Order must belong to a user"],
     },
     priceAtPurchase: {
       type: Number,
-      required: true,
+      // required: true,
+      required: [true, "Price at purchase is required"],
     },
     orderStatus: {
       type: String,
@@ -60,6 +71,7 @@ const order = new mongoose.Schema(
       state: String,
       postalCode: String,
       country: String,
+      apt: String,
     },
   },
   {

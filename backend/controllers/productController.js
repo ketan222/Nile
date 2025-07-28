@@ -9,7 +9,6 @@ exports.addProduct = async function (req, res) {
       productName,
       brandName,
       productPrice,
-      productQuantity,
       productCategory,
       productDescription,
       productImage,
@@ -26,7 +25,7 @@ exports.addProduct = async function (req, res) {
       productName: productName.toLowerCase(),
       brand: brandName.toLowerCase(),
       price: productPrice,
-      stock: productQuantity,
+      stock: 0,
       category: updatedCategory,
       description: productDescription,
       productImage,
@@ -81,6 +80,7 @@ exports.getProducts = async function (req, res) {
 exports.getProductById = async function (req, res) {
   try {
     const productId = req.params.id;
+    console.log(productId + "+++++");
     const product = await Product.findById(productId).populate({
       path: "reviews",
       populate: {
@@ -103,6 +103,8 @@ exports.getProductById = async function (req, res) {
   }
 };
 
+// const Product = require("../models/Product"); // Make sure you import this if not already
+
 exports.addToCart = async function (req, res) {
   try {
     const productId = req.params.id;
@@ -113,10 +115,17 @@ exports.addToCart = async function (req, res) {
       return res.status(400).json({ message: "Invalid user or product" });
     }
 
-    const user = await User.findById(userId);
+    const [user, product] = await Promise.all([
+      User.findById(userId),
+      Product.findById(productId),
+    ]);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
+    }
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
     }
 
     const existingProduct = user.cart.find(
@@ -124,8 +133,24 @@ exports.addToCart = async function (req, res) {
     );
 
     if (existingProduct) {
-      existingProduct.quantity += quantity;
+      const newQuantity = existingProduct.quantity + quantity;
+
+      if (newQuantity > product.stock) {
+        return res.status(400).json({
+          message: `Cannot add more than available stock (${product.stock})`,
+          cart: user.cart,
+        });
+      }
+
+      existingProduct.quantity = newQuantity;
     } else {
+      if (quantity > product.stock) {
+        return res.status(400).json({
+          message: `Cannot add more than available stock (${product.stock})`,
+          cart: user.cart,
+        });
+      }
+
       user.cart.push({ product: productId, quantity });
     }
 
@@ -319,7 +344,19 @@ exports.orderPlaced = async function (req, res) {
   try {
     const user = await User.findById(req.user._id);
     const product = await Product.findById(req.params.id);
+    // console.log(req.params, "id");
+    if (!user || !product) {
+      throw new Error("User or product not found");
+    }
+    const name = req.body.name || user.name;
+    const phoneNo = req.body.phoneNo || user.phoneNo;
+
+    if (product.stock < req.body.quantity)
+      throw new Error("Insufficient stock for the product");
+    console.log("here");
     const order = {
+      name: name,
+      phoneNo: phoneNo,
       user: user._id,
       product: product._id,
       orderDate: Date.now(),
@@ -329,11 +366,13 @@ exports.orderPlaced = async function (req, res) {
       paymentMethod: req.body.paymentMethod,
       shippingAddress: req.body.shippingAddress,
     };
-    user.orderHistory.push(order._id);
-    await Orders.create(order);
-    user.save();
+    const a = await Orders.create(order);
+    user.orderHistory.push(a._id);
+    await user.save();
     product.stock -= req.body.quantity;
-    product.save();
+    await product.save();
+    console.log("orderPlaced called");
+
     res.status(200).json({
       status: "success",
       data: {
@@ -341,8 +380,8 @@ exports.orderPlaced = async function (req, res) {
       },
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Internal server error" });
+    // console.log(err);
+    res.status(500).json({ message: err.message || "Internal server error" });
   }
 };
 
@@ -459,6 +498,91 @@ exports.getAllReviews = async function (req, res) {
     });
   } catch (err) {
     console.log(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.myCart = async (req, res, next) => {
+  try {
+    // console.log("here");
+
+    const currUser = await User.findById(req.user._id).populate("cart.product");
+    if (!currUser) throw new Error("User not found");
+    // console.log(currUser.cart[0], "cart");
+    res.status(200).json({
+      status: "success",
+      cart: currUser.cart,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.CartProductChgQuantity = async (req, res) => {
+  try {
+    const cartItemId = req.params.id;
+    const { quantity } = req.body;
+
+    const user = await User.findById(req.user._id).populate("cart.product");
+
+    const cartItem = user.cart.find(
+      (item) => item._id.toString() === cartItemId
+    );
+
+    if (!cartItem) {
+      return res.status(404).json({ message: "Cart item not found" });
+    }
+
+    const availableStock = cartItem.product.stock;
+
+    // If trying to increase beyond stock
+    if (quantity > 0 && cartItem.quantity + quantity > availableStock) {
+      return res.status(400).json({
+        message: `Cannot add more than available stock (${availableStock})`,
+        cart: user.cart,
+      });
+    }
+
+    // Apply the quantity change
+    cartItem.quantity += quantity;
+
+    // If quantity is 0 or less, remove the item
+    if (cartItem.quantity <= 0) {
+      user.cart = user.cart.filter(
+        (item) => item._id.toString() !== cartItemId
+      );
+    }
+
+    await user.save();
+
+    res.status(200).json({
+      status: "success",
+      message: "Cart item quantity updated",
+      cart: user.cart,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.myOrders = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).populate({
+      path: "orderHistory",
+      populate: { path: "product" },
+    });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    // console.log(user.orderHistory, "orderHistory");
+    res.status(200).json({
+      status: "success",
+      data: {
+        orders: user.orderHistory,
+      },
+    });
+  } catch (err) {
     res.status(500).json({ message: "Internal server error" });
   }
 };

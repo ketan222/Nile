@@ -69,10 +69,7 @@ export default function SearchPage() {
 
       {/* Main content */}
       <div className="flex flex-grow justify-center items-start overflow-y-scroll scrollbar-hidden p-1">
-        <div className=" w-1/5 h-full bg-secondary p-4 overflow-y-scroll  scrollbar-hidden ">
-          left
-        </div>
-        <div className=" flex flex-col w-3/4 h-full p-4 overflow-y-scroll  scrollbar-hidden ">
+        <div className=" flex flex-col w-[100%] md:w-[90%] h-full p-4 overflow-y-scroll  scrollbar-hidden ">
           {products.map((product) => (
             <SearchPageComponent
               key={product._id}

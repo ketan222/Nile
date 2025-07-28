@@ -20,6 +20,7 @@ export default function SellerInfo() {
   const { logoutSeller } = useCont();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -225,6 +226,7 @@ export default function SellerInfo() {
   if (seller == null) {
     return <div>loading...</div>;
   }
+  console.log(window);
   return (
     <>
       <NavBarSeller setWindow={setWindow} />

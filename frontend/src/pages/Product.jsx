@@ -122,8 +122,7 @@ export default function Product() {
       // console.log(data);
       // loginBuyer(data.data.user);
     } catch (err) {
-      console.log("Cannot add to cart");
-      console.log(err);
+      alert("Cannot add to cart, Product outta stock");
     }
   };
 
@@ -150,7 +149,7 @@ export default function Product() {
     };
     fetchProduct();
   }, [productId]);
-  // console.log(product);
+  console.log(product);
 
   let [currentImage, setCurrentImage] = useState(0);
   // if (!user) navigate("/login");
@@ -231,15 +230,52 @@ export default function Product() {
           </div>
 
           <div className="flex flex-row justify-between items-center w-80p h-15p gap-5">
-            <div
-              onClick={handleAddToCart}
-              className="bg-secondary flex-grow rounded-lg py-3 text-base whitespace-nowrap md:text-base lg:text-xl px-3 font-bold"
-            >
-              Add to Cart
-            </div>
-            <div className="bg-primary   flex-grow rounded-lg py-3 text-base whitespace-nowrap md:text-base lg:text-xl px-3 font-bold">
-              Buy Now
-            </div>
+            {product.stock >= 1 && (
+              <div
+                onClick={handleAddToCart}
+                className="bg-secondary flex-grow rounded-lg py-3 text-base whitespace-nowrap md:text-base lg:text-xl px-3 font-bold"
+              >
+                Add to Cart
+              </div>
+            )}
+            {product.stock >= 1 && (
+              <div
+                className="bg-primary   flex-grow rounded-lg py-3 text-base whitespace-nowrap md:text-base lg:text-xl px-3 font-bold"
+                onClick={async () => {
+                  const cart = [];
+                  const aa = {
+                    product: {},
+                    quantity: 1,
+                  };
+                  const resp = await fetch(
+                    `http://127.0.0.1:8000/api/product/getProduct/${product._id}`,
+                    {
+                      method: "GET",
+                      headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem(
+                          "user-jwt"
+                        )}`,
+                      },
+                    }
+                  );
+                  if (!resp.ok) throw new Error("Cannot buy right now");
+                  const data = await resp.json();
+                  aa.product = data.data.product;
+                  cart.push(aa);
+
+                  localStorage.setItem("cart", JSON.stringify(cart));
+                  navigate("/BuyNow");
+                }}
+              >
+                Buy Now
+              </div>
+            )}
+            {product.stock <= 0 && (
+              <div className="bg-red-500   flex-grow rounded-lg py-3 text-base whitespace-nowrap md:text-base lg:text-xl px-3 font-bold">
+                Out Of stock
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-col  h-full w-full md:w-50p py-4 gap-6 overflow-y-scroll scrollbar-hidden">
