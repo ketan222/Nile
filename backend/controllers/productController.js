@@ -238,9 +238,13 @@ exports.getWomenFashionMiddleware = async function (req, res, next) {
 exports.getSmartWatchMiddleware = async function (req, res, next) {
   req.query.category = [
     "fitness watch",
+    "fitness watches",
+    "smartwatch",
     "smartwatches",
     "fitness tracker",
+    "fitness trackers",
     "smart band",
+    "smart bands",
   ];
   next();
 };
@@ -248,11 +252,17 @@ exports.getTWSMiddleware = async function (req, res, next) {
   req.query.category = [
     "tws",
     "earphones",
+    "earphone",
     "ear buds",
+    "ear bud",
     "earphones",
+    "earphone",
     "headphones",
+    "headphone",
     "wireless earphones",
+    "wireless earphone",
     "wireless headphones",
+    "wireless headphone",
   ];
   next();
 };
@@ -361,7 +371,7 @@ exports.orderPlaced = async function (req, res) {
       product: product._id,
       orderDate: Date.now(),
       quantity: req.body.quantity,
-      priceAtPurchase: product.price,
+      priceAtPurchase: (product.price * (100 - product.discount)) / 100,
       paymentStatus: req.body.paymentStatus,
       paymentMethod: req.body.paymentMethod,
       shippingAddress: req.body.shippingAddress,

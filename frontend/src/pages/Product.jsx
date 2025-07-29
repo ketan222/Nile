@@ -149,12 +149,12 @@ export default function Product() {
     };
     fetchProduct();
   }, [productId]);
-  console.log(product);
+  // console.log(product);
 
   let [currentImage, setCurrentImage] = useState(0);
   // if (!user) navigate("/login");
   if (!product) return <div>Loading...</div>;
-  console.log(product.reviews);
+  // console.log(product.reviews);
 
   // const {reviews, setReviews} = useState([]);
   let images = [...product.productImage];

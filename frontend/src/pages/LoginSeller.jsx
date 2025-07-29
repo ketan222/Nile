@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCont } from "../Context/Context";
 export default function LoginSeller() {
@@ -49,6 +49,38 @@ export default function LoginSeller() {
       console.log(err);
     }
   }
+
+  useEffect(() => {
+    // if (user) {
+    async function chkToken() {
+      try {
+        console.log("Checking token validity...");
+        if (!localStorage.getItem("seller-jwt")) {
+          throw new Error("No token found");
+        }
+        const resp = await fetch("http://127.0.0.1:8000/api/seller/myAccount", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("seller-jwt"),
+          },
+        });
+        if (!resp.ok) throw new Error("Token is not valid");
+        const data = await resp.json();
+        console.log("Token is valid, seller data:", data);
+        // if (user !== data.data.user) throw new Error("User mismatch");
+        loginSeller(data.data.seller);
+        console.log("seller logged in:", data.data.seller);
+        navigate("/sellerInfo");
+      } catch (err) {
+        console.log(err.message);
+        localStorage.removeItem("seller-jwt");
+      }
+    }
+    chkToken();
+    // }
+  }, []);
+
   return (
     <div className="flex justify-around w-screen h-screen bg-[url('../public/BG/LOGIN-BG.png')] bg-cover bg-center font-sans">
       <div className="h-screen w-6/12 flex justify-center items-center">
@@ -89,7 +121,10 @@ export default function LoginSeller() {
               </div>
             </div>
             <div className="text-sm">
-              Dont have seller account? Create Account
+              Dont have seller account?{" "}
+              <Link to={"/signUpSeller"} className="text-blue-500">
+                Create Account
+              </Link>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCont } from "../Context/Context";
+import { useEffect } from "react";
 
 function SignUp() {
   const [name, setName] = useState("");
@@ -11,6 +12,37 @@ function SignUp() {
   const { user, loginBuyer } = useCont();
 
   // console.log({ name, email, password, confirmPassword });
+
+  useEffect(() => {
+    // if (user) {
+    async function chkToken() {
+      try {
+        console.log("Checking token validity...");
+        if (!localStorage.getItem("user-jwt")) {
+          throw new Error("No token found");
+        }
+        const resp = await fetch("http://127.0.0.1:8000/api/user/getUser", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("user-jwt"),
+          },
+        });
+        if (!resp.ok) throw new Error("Token is not valid");
+        const data = await resp.json();
+        console.log("Token is valid, user data:", data);
+        // if (user !== data.data.user) throw new Error("User mismatch");
+        loginBuyer(data.user);
+        // console.log("User logged in:", data.user);
+        navigate("/home");
+      } catch (err) {
+        console.log(err.message);
+        localStorage.removeItem("user-jwt");
+      }
+    }
+    chkToken();
+    // }
+  }, []);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -131,7 +163,9 @@ function SignUp() {
                 C R E A T E
               </button>
             </div>
-            <div>Already have an account? Sign-in</div>
+            <div>
+              Already have an account? <Link to="/login">Sign-in</Link>
+            </div>
           </form>
         </div>
       </div>

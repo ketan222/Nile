@@ -41,9 +41,11 @@ function Recommendations({ recommendations }) {
       </div>
       <div className="flex flex-row items-center justify-center bg-secondary w-full p-4 gap-5">
         <div className="flex flex-row items-center justify-start w-90p h-96p gap-5 md:gap-10 overflow-x-hidden pl-5 md:pl-10">
-          {products.map((product) => (
-            <ItemTemplate key={product._id} item={product} />
-          ))}
+          {products.map((product) => {
+            if (product.stock > 0) {
+              return <ItemTemplate key={product._id} item={product} />;
+            }
+          })}
         </div>
         <div
           onClick={() => navigate(`/searchPage/${recommendations}`)}

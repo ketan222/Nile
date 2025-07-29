@@ -18,6 +18,7 @@ export default function SearchPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        console.log(filter + "filter");
         const response = await fetch(
           `http://localhost:8000/api/product/${filter || "getProductFiltered"}`,
           {
@@ -38,7 +39,7 @@ export default function SearchPage() {
     };
     const searchProducts = async () => {
       try {
-        console.log(search);
+        console.log(search + "+++");
         const res = await fetch(
           `http://localhost:8000/api/product/getSearchResult`,
           {
@@ -59,10 +60,24 @@ export default function SearchPage() {
         console.log(err);
       }
     };
-    if (search != null) searchProducts();
+    if (search !== "") searchProducts();
     else fetchProducts();
   }, [filter, search]);
   // console.log(products);
+
+  if (products.length === 0) {
+    return (
+      <div className="h-screen w-screen flex flex-col">
+        <NavBarBuyer />
+        <div className="flex flex-col items-center justify-center h-screen">
+          <h1 className="text-2xl font-bold">No Products Found</h1>
+          <p className="text-gray-500">Try searching for something else.</p>
+        </div>
+        <UserFotter />
+      </div>
+    );
+  }
+
   return (
     <div className="h-screen w-screen flex flex-col">
       <NavBarBuyer />

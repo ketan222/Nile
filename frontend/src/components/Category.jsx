@@ -11,8 +11,11 @@ function Category() {
   ];
   const handleCategory = (index) => {
     if (index === 0) {
+      // console.log("clicked ON MEN");
       navigate("/searchPage/getMenFashion");
     } else if (index === 1) {
+      // console.log("clicked ON woMEN");
+
       navigate("/searchPage/getWomenFashion");
     } else if (index === 2) {
       navigate("/searchPage/getTWS");

@@ -38,13 +38,13 @@ exports.signup = async function (req, res, next) {
   // console.log(seller);
 
   const token = sellerSigninToken(seller._id);
-  // const options = {
-  //   expires: new Date(
-  //     Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-  //   ),
-  //   httpOnly: true,
-  // };
-  // res.cookie("seller-jwt", token, options);
+  const options = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+  };
+  res.cookie("seller-jwt", token, options);
   res.status(200).json({
     status: "new Seller created",
     token,
@@ -77,14 +77,14 @@ exports.login = async function (req, res, next) {
 
   const token = await sellerSigninToken(seller._id);
   // console.log(token);
-  // const options = {
-  //   expires: new Date(
-  //     Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-  //   ),
-  //   httpOnly: true,
-  // };
-  // //   console.log(token);
-  // res.cookie("seller-jwt", token, options);
+  const options = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+  };
+  //   console.log(token);
+  res.cookie("seller-jwt", token, options);
   res.status(200).json({
     status: "login successfull",
     token,

@@ -29,21 +29,19 @@ function ContextProvider({ children }) {
   // Sync state to localStorage on login
   function loginBuyer(userData) {
     setUser(userData);
-    // localStorage.setItem("user", JSON.stringify(userData));
+    console.log("User logged in:", userData);
     setSeller(null);
-    // localStorage.removeItem("seller");
   }
 
   function logoutBuyer() {
+    console.log("User logged out");
     setUser(null);
-    // localStorage.removeItem("user");
   }
 
   function loginSeller(sellerData) {
+    console.log("Seller logged in:", sellerData);
     setSeller(sellerData);
-    // localStorage.setItem("seller", JSON.stringify(sellerData));
     setUser(null);
-    // localStorage.removeItem("user");
   }
 
   function logoutSeller() {

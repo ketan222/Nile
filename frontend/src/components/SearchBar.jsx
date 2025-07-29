@@ -20,7 +20,7 @@ function SearchBar() {
       <div
         className=" h-70p flex justify-center items-center rounded-full cursor-pointer"
         onClick={() => {
-          if (val === "") {
+          if (inputRef.current.value === null) {
             inputRef.current.focus();
           } else {
             setSearchProduct(val);

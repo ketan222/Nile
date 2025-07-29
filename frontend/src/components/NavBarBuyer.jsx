@@ -2,9 +2,11 @@ import "../index.css";
 import { Link } from "react-router-dom";
 import { useCont } from "../Context/Context";
 import SearchBar from "./SearchBar";
+import { useNavigate } from "react-router-dom";
 
 function NavBar() {
-  const { user } = useCont();
+  const { user, setSearchProduct } = useCont();
+  const navigate = useNavigate();
   return (
     <div className="w-screen max-h-[10%] flex justify-between items-center font-san  font-bold text-xs md:text-base lg:text-lg px-2 md:px-5 md:h-100p lg:px-7 ">
       <Link to="/" className="w-20  flex justify-center items-center">
@@ -17,10 +19,33 @@ function NavBar() {
 
       <div className="h-full w-75p flex  justify-between items-center pr-2 md:w-60p lg:w-60p">
         <SearchBar />
-        <Link to="/searchPage" className="">
+        <Link
+          to="/searchPage"
+          className=""
+          onClick={() => setSearchProduct("")}
+        >
           Products
         </Link>
-        <Link className="">My Account</Link>
+        <div className="relative group flex flex-col items-center px-4 py-2 cursor-pointer ">
+          <div>My Account</div>
+
+          {/* Hoverable Area: this stays visible as long as mouse is over group */}
+          <div className="absolute left-0 top-[80%] mt-2 hidden group-hover:flex flex-col w-full bg-white border border-gray-300 rounded shadow-lg text-center opacity-0 group-hover:opacity-100 translate-y-[-10px] group-hover:translate-y-0 transition-all duration-300 ease-in-out z-50">
+            <Link to="/orders" className="block px-4 py-2 hover:text-primary">
+              Orders
+            </Link>
+            <div
+              className="block px-4 py-2 hover:text-primary cursor-pointer"
+              onClick={() => {
+                localStorage.removeItem("user-jwt");
+                navigate("/login");
+              }}
+            >
+              Logout
+            </div>
+          </div>
+        </div>
+
         <Link to="/cart" className="rounded-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"

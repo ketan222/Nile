@@ -24,6 +24,8 @@ export default function RouteProtector({ children }) {
   }
 
   if (redirect || !user) {
+    localStorage.removeItem("user-jwt");
+    logoutBuyer();
     return <Navigate to="/login" replace />;
   }
 

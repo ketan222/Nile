@@ -9,14 +9,40 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const { user, loginBuyer } = useCont();
-  // const [bg, setBg] = useState('#8ce99a');
-  // const [bg1, setBg1] = useState('#8ce99a');
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   console.log(user);
-  // }, [user]);
+  useEffect(() => {
+    // if (user) {
+    async function chkToken() {
+      try {
+        console.log("Checking token validity...");
+        if (!localStorage.getItem("user-jwt")) {
+          throw new Error("No token found");
+        }
+        const resp = await fetch("http://127.0.0.1:8000/api/user/getUser", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("user-jwt"),
+          },
+        });
+        if (!resp.ok) throw new Error("Token is not valid");
+        const data = await resp.json();
+        console.log("Token is valid, user data:", data);
+        // if (user !== data.data.user) throw new Error("User mismatch");
+        loginBuyer(data.user);
+        // console.log("User logged in:", data.user);
+        navigate("/home");
+      } catch (err) {
+        console.log(err.message);
+        localStorage.removeItem("user-jwt");
+      }
+    }
+    chkToken();
+    // }
+  }, []);
 
-  // console.log(email, " ", password);
+  // console.log("User in login:", user);
+
   return (
     <div className="flex justify-around w-screen h-screen bg-[url('../public/BG/LOGIN-BG.png')] bg-cover bg-center font-sans">
       <div className="h-screen w-6/12 flex justify-center items-center">
@@ -97,13 +123,7 @@ function Login() {
 
                     localStorage.setItem("user-jwt", data.token);
                     loginBuyer(data.data.user);
-                    // console.log("User logged in:", data.data.user);
-                    // useEffect(() => {
-                    //   console.log(user);
-                    // }, [user]);
-                    // console.log("Login success:", data);
-
-                    // ✅ Navigate to the path only if login is successful
+                    console.log("Login successful:", user);
                     navigate("/");
                   } catch (error) {
                     console.error("Error during login:", error);
@@ -115,7 +135,12 @@ function Login() {
                 L O G I N
               </button>
             </div>
-            <div>Dont have account? Create Account</div>
+            <div>
+              Dont have account?{" "}
+              <Link to="/signup" className="text-blue-500">
+                Create Account
+              </Link>
+            </div>
           </div>
         </div>
       </div>

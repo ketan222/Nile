@@ -92,4 +92,10 @@ app.post(
   userController.protect,
   productController.removeFromWishlist
 );
+// app.patch(
+//   "/buyProduct/:id",
+//   userController.protect,
+//   productController.buyProduct
+// );
+
 module.exports = app;

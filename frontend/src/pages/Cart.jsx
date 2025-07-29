@@ -58,7 +58,7 @@ function Cart() {
       setLoading(false);
     }
   }
-  // console.log(cart, " cart");
+  console.log(cart, " cart");
   if (loading) {
     return (
       <div className="min-h-screen w-screen flex flex-col justify-between items-center">
@@ -153,7 +153,9 @@ function Cart() {
                   </div>
                 </div>
                 <div className=" w-[20%] flex justify-center items-center text-base">
-                  {item.product.price * item.quantity}
+                  {item.product.price *
+                    ((100 - item.product.discount) / 100) *
+                    item.quantity}
                 </div>
               </div>
             ))}
@@ -167,7 +169,11 @@ function Cart() {
                 <div>Subtotal</div>
                 <div>
                   {cart.reduce(
-                    (acc, item) => acc + item.product.price * item.quantity,
+                    (acc, item) =>
+                      acc +
+                      item.product.price *
+                        ((100 - item.product.discount) / 100) *
+                        item.quantity,
                     0
                   )}
                 </div>
@@ -182,7 +188,11 @@ function Cart() {
                   {cart
                     .reduce(
                       (acc, item) =>
-                        acc + item.product.price * item.quantity * 0.01,
+                        acc +
+                        item.product.price *
+                          ((100 - item.product.discount) / 100) *
+                          item.quantity *
+                          0.01,
                       0
                     )
                     .toFixed(2)}
@@ -193,12 +203,20 @@ function Cart() {
               <div>Total</div>
               <div>
                 {cart.reduce(
-                  (acc, item) => acc + item.product.price * item.quantity,
+                  (acc, item) =>
+                    acc +
+                    item.product.price *
+                      ((100 - item.product.discount) / 100) *
+                      item.quantity,
                   0
                 ) +
                   cart.reduce(
                     (acc, item) =>
-                      acc + item.product.price * item.quantity * 0.01,
+                      acc +
+                      item.product.price *
+                        ((100 - item.product.discount) / 100) *
+                        item.quantity *
+                        0.01,
                     0
                   )}
               </div>

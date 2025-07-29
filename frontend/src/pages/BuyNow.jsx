@@ -94,14 +94,14 @@ function BuyNow() {
   }
 
   if (currCart.length === 0) {
-    navigate("/cart");
-    // return (
-    //   <div className="min-h-screen w-screen flex flex-col justify-center items-center border-2 border-black">
-    //     <NavBarBuyer />
-    //     <div className="text-2xl">loading</div>
-    //     <UserFotter />
-    //   </div>
-    // );
+    // navigate("/cart");
+    return (
+      <div className="min-h-screen w-screen flex flex-col justify-center items-center border-2 border-black">
+        <NavBarBuyer />
+        <div className="text-2xl">loading</div>
+        <UserFotter />
+      </div>
+    );
   }
 
   return (
@@ -197,7 +197,11 @@ function BuyNow() {
               <div>Subtotal</div>
               <div>
                 {currCart.reduce(
-                  (acc, item) => acc + item.product.price * item.quantity,
+                  (acc, item) =>
+                    acc +
+                    ((item.product.price * (100 - item.product.discount)) /
+                      100) *
+                      item.quantity,
                   0
                 )}
               </div>
@@ -212,7 +216,11 @@ function BuyNow() {
                 {currCart
                   .reduce(
                     (acc, item) =>
-                      acc + item.product.price * item.quantity * 0.01,
+                      acc +
+                      ((item.product.price * (100 - item.product.discount)) /
+                        100) *
+                        item.quantity *
+                        0.01,
                     0
                   )
                   .toFixed(2)}
@@ -223,12 +231,19 @@ function BuyNow() {
             <div>Total</div>
             <div>
               {currCart.reduce(
-                (acc, item) => acc + item.product.price * item.quantity,
+                (acc, item) =>
+                  acc +
+                  ((item.product.price * (100 - item.product.discount)) / 100) *
+                    item.quantity,
                 0
               ) +
                 currCart.reduce(
                   (acc, item) =>
-                    acc + item.product.price * item.quantity * 0.01,
+                    acc +
+                    ((item.product.price * (100 - item.product.discount)) /
+                      100) *
+                      item.quantity *
+                      0.01,
                   0
                 )}
             </div>

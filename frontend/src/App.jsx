@@ -33,15 +33,33 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Orders />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route
-          path="/home"
+          path="/orders"
           element={
             <RouteProtector>
-              <Home />
+              <Orders />
             </RouteProtector>
           }
         />
+        <Route
+          path="/BuyNow"
+          element={
+            <RouteProtector>
+              <BuyNow />
+            </RouteProtector>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <RouteProtector>
+              <Cart />
+            </RouteProtector>
+          }
+        />
+
         <Route path="/getProduct/:productId" element={<Product />} />
         <Route path="/searchPage/:filter" element={<SearchPage />} />
         <Route path="/searchPage" element={<SearchPage />} />
@@ -50,9 +68,6 @@ function App() {
         <Route path="/loginSeller" element={<LoginSeller />} />
         <Route path="/signUpSeller" element={<SignUpSeller />} />
         <Route path="/sellerInfo" element={<SellerInfo />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/BuyNow" element={<BuyNow />} />
-        <Route path="/orders" element={<Orders />} />
       </Routes>
     </>
   );

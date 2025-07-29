@@ -23,7 +23,7 @@ function Orders() {
 
         const data = await res.json(); // Correct way to parse JSON from response
         // console.log(data);
-        setOrders(data.data.orders);
+        setOrders([...data.data.orders].reverse());
       }
       getOrders();
     } catch (err) {
@@ -83,7 +83,10 @@ function Orders() {
                 </div>
                 <div className="flex flex-row text-xs md:text-base">
                   <div>Total:</div>
-                  <div>{item.quantity * item.priceAtPurchase}</div>
+                  <div>
+                    {item.quantity * item.priceAtPurchase +
+                      item.priceAtPurchase * item.quantity * 0.01}
+                  </div>
                 </div>
                 <div className="flex flex-row text-xs md:text-base gap-3">
                   {/* <div className="py-1 px-3  flex flex-row justify-center items-center bg-secondary rounded-md">
