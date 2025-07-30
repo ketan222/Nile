@@ -22,7 +22,7 @@ function SignUp() {
           throw new Error("No token found");
         }
         const resp = await fetch(
-          "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/user/getUser",
+          "https://nile-lime.vercel.app/api/user/getUser",
           {
             method: "GET",
             headers: {
@@ -63,21 +63,18 @@ function SignUp() {
     // 🔐 Submit form logic goes here (e.g., fetch to backend)
     // console.log("Ready to send data:", { name, email, password });
     try {
-      const user = await fetch(
-        "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/user/signup",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: name,
-            password: password,
-            email: email,
-            passwordConfirm: confirmPassword,
-          }),
-        }
-      );
+      const user = await fetch("https://nile-lime.vercel.app/api/user/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          password: password,
+          email: email,
+          passwordConfirm: confirmPassword,
+        }),
+      });
       if (!user.ok) {
         throw new Error("Error creating user");
       }

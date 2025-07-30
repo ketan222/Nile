@@ -20,7 +20,7 @@ export default function SearchPage() {
       try {
         console.log(filter + "filter");
         const response = await fetch(
-          `https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/product/${
+          `https://nile-lime.vercel.app/api/product/${
             filter || "getProductFiltered"
           }`,
           {
@@ -43,7 +43,7 @@ export default function SearchPage() {
       try {
         console.log(search + "+++");
         const res = await fetch(
-          `https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/product/getSearchResult`,
+          `https://nile-lime.vercel.app/api/product/getSearchResult`,
           {
             method: "POST",
             headers: {

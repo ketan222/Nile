@@ -26,19 +26,16 @@ export default function LoginSeller() {
     }
 
     try {
-      const res = await fetch(
-        "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/seller/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({
-            email: email,
-            password: password,
-          }),
-        }
-      );
+      const res = await fetch("https://nile-lime.vercel.app/api/seller/login", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
       if (!res.ok) {
         throw new Error("Error logging in seller");
       }
@@ -62,7 +59,7 @@ export default function LoginSeller() {
           throw new Error("No token found");
         }
         const resp = await fetch(
-          "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/seller/myAccount",
+          "https://nile-lime.vercel.app/api/seller/myAccount",
           {
             method: "GET",
             headers: {

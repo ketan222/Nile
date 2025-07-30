@@ -10,7 +10,7 @@ function Cart() {
     try {
       const getCart = async () => {
         const response = await fetch(
-          "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/user/myCart",
+          "https://nile-lime.vercel.app/api/user/myCart",
           {
             method: "GET",
             headers: {
@@ -38,7 +38,7 @@ function Cart() {
       setLoading(true);
       async function updateQuantity() {
         const fetchCart = await fetch(
-          `https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/user/CartProductChgQuantity/${id}`,
+          `https://nile-lime.vercel.app/api/user/CartProductChgQuantity/${id}`,
           {
             method: "PATCH",
             headers: {
