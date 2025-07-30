@@ -89,7 +89,7 @@ function Cart() {
                 className="flex flex-row w-full h-[10%] border-b-2 border-gray-200"
                 key={item._id}
               >
-                {console.log(item.product.productImage[0], " image")}
+                {/* {console.log(item.product.productImage[0], " image")} */}
                 <div
                   className="w-[20%] bg-contain bg-no-repeat bg-center h-24"
                   style={{

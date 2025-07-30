@@ -1,12 +1,20 @@
 import { Link } from "react-router-dom";
 import { useCont } from "../Context/Context.jsx";
 function UserFooter() {
-  const { user, logoutBuyer } = useCont();
+  const { user, logoutBuyer, logoutSeller } = useCont();
   return (
     <footer className="lg:h-20 md:h-16 sm:h-10 w-screen bg-secondary flex flex-row justify-between items-center text-textPrimary lg:text-lg md:text-base text-xs lg:px-16 sm:px-4">
       <div className="flex flex-row  justify-around items-center w-70p h-100p ">
         <Link to="/some-path">About us</Link>
-        <Link to="/some-path">Feedback</Link>
+        <Link
+          to="/login"
+          onClick={() => {
+            localStorage.removeItem("seller-jwt");
+            logoutSeller();
+          }}
+        >
+          Buy Goods
+        </Link>
         <Link
           to="/signUpSeller"
           onClick={() => {

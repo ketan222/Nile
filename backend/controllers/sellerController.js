@@ -240,7 +240,7 @@ exports.editAccountHolderName = async function (req, res, next) {
       ),
       httpOnly: true,
     };
-    console.log(token);
+    // console.log(token);
     res.cookie("seller-jwt", token, options);
     res.status(200).json({
       status: "Update successfull",
@@ -281,7 +281,7 @@ exports.editAccountNumber = async function (req, res, next) {
       ),
       httpOnly: true,
     };
-    console.log(token);
+    // console.log(token);
     res.cookie("seller-jwt", token, options);
     res.status(200).json({
       status: "Update successfull",
@@ -322,7 +322,7 @@ exports.editIFSCCode = async function (req, res, next) {
       ),
       httpOnly: true,
     };
-    console.log(token);
+    // console.log(token);
     res.cookie("seller-jwt", token, options);
     res.status(200).json({
       status: "Update successfull",
@@ -369,7 +369,7 @@ exports.updatePassword = async function (req, res, next) {
       },
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json({ status: "fail", message: "Internal server error" });
   }
 };

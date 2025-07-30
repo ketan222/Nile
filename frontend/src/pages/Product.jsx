@@ -158,6 +158,7 @@ export default function Product() {
 
   // const {reviews, setReviews} = useState([]);
   let images = [...product.productImage];
+  console.log(product);
   function handleImgNavigation(index) {
     setCurrentImage(index);
   }
@@ -168,6 +169,7 @@ export default function Product() {
       <div className=" flex-grow md:overflow-y-auto flex flex-col md:flex-row justify-evenly items-center">
         <div className="flex flex-col h-auto md:h-full w-full md:w-35p justify-center items-center py-6">
           <div className="relative  w-80p h-80p">
+            {console.log(images[currentImage] + " HERE")}
             <img
               src={images[currentImage]}
               alt=""
@@ -354,11 +356,11 @@ export default function Product() {
                     numberOfRatings={product.numberOfRatings}
                   />
                 </div>
-                <div className="h-90p w-30p  flex justify-center items-center">
+                {/* <div className="h-90p w-30p  flex justify-center items-center">
                   <div className="bg-secondary text-sm lg:text-xl py-3 lg:py-5 px-6 lg:px-10 rounded-full">
                     Rate Now
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             {/* {console.log("These are the product reviews" + product.reviews[0])} */}

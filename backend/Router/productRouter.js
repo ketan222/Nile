@@ -92,6 +92,7 @@ app.post(
   userController.protect,
   productController.removeFromWishlist
 );
+app.patch("/updateProduct/:id", productController.updateProduct);
 // app.patch(
 //   "/buyProduct/:id",
 //   userController.protect,

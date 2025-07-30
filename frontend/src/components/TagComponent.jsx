@@ -28,7 +28,7 @@ export default function TagComponent({ tags, setTags, usage }) {
       }
     }
   };
-
+  console.log(tags);
   return (
     <div className="w-full h-full flex flex-row items-center rounded-lg relative">
       {usage === "text" ? (

@@ -4,6 +4,10 @@ const Reviews = require("../Models/reviewsModel.js");
 const Orders = require("../Models/orderModel.js");
 
 exports.addProduct = async function (req, res) {
+  // console.log(req.body);
+  // res.status(200).json({
+  //   status: "done",
+  // });
   try {
     const {
       productName,
@@ -16,6 +20,8 @@ exports.addProduct = async function (req, res) {
       discount,
     } = req.body;
     const sellerId = req.seller._id;
+
+    // console.log(productImage + "JJJJJJJJ" + productCategory);
 
     const updatedCategory = productCategory.map((category) =>
       category.toLowerCase()
@@ -35,6 +41,7 @@ exports.addProduct = async function (req, res) {
     });
 
     await product.save();
+    // console.log("++++/+++++++++++++" + product);
     res.status(201).json({
       status: "success",
       data: {
@@ -42,7 +49,7 @@ exports.addProduct = async function (req, res) {
       },
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -58,13 +65,13 @@ exports.getProductsOfSeller = async function (req, res) {
       },
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json({ message: "Internal server error" });
   }
 };
 
 exports.getProducts = async function (req, res) {
-  console.log("hello");
+  // console.log("hello");
   try {
     const products = await Product.find({});
     if (!products) {
@@ -72,7 +79,7 @@ exports.getProducts = async function (req, res) {
     }
     res.status(200).json({ status: "success", data: products });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -80,7 +87,7 @@ exports.getProducts = async function (req, res) {
 exports.getProductById = async function (req, res) {
   try {
     const productId = req.params.id;
-    console.log(productId + "+++++");
+    // console.log(productId + "+++++");
     const product = await Product.findById(productId).populate({
       path: "reviews",
       populate: {
@@ -98,7 +105,7 @@ exports.getProductById = async function (req, res) {
       },
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -158,7 +165,7 @@ exports.addToCart = async function (req, res) {
 
     res.status(200).json({ message: "Product added to cart", cart: user.cart });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -179,7 +186,7 @@ exports.getProductReviews = async function (req, res) {
       },
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -222,7 +229,7 @@ exports.getProductFilter = async function (req, res) {
       },
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -323,7 +330,7 @@ exports.getMenFashion = async function (req, res) {
       },
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -345,7 +352,7 @@ exports.getWomenFashion = async function (req, res) {
       },
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -363,7 +370,7 @@ exports.orderPlaced = async function (req, res) {
 
     if (product.stock < req.body.quantity)
       throw new Error("Insufficient stock for the product");
-    console.log("here");
+    // console.log("here");
     const order = {
       name: name,
       phoneNo: phoneNo,
@@ -381,7 +388,7 @@ exports.orderPlaced = async function (req, res) {
     await user.save();
     product.stock -= req.body.quantity;
     await product.save();
-    console.log("orderPlaced called");
+    // console.log("orderPlaced called");
 
     res.status(200).json({
       status: "success",
@@ -397,22 +404,52 @@ exports.orderPlaced = async function (req, res) {
 
 exports.addReview = async function (req, res) {
   try {
+    console.log("here");
     const productId = req.params.id;
     const userId = req.user._id;
     const { rating, review } = req.body;
 
-    const r = { user: userId, rating, review, product: productId };
+    if (rating < 1 || rating > 5) {
+      return res
+        .status(400)
+        .json({ message: "Rating must be between 1 and 5" });
+    }
 
     const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
+
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    const realReview = await Reviews.create(r);
-    product.reviews.push(realReview._id);
+
+    // Optional: prevent duplicate reviews by the same user for the same product
+    const existingReview = await Reviews.findOne({
+      user: userId,
+      product: productId,
+    });
+    if (existingReview) {
+      return res
+        .status(400)
+        .json({ message: "You have already reviewed this product" });
+    }
+    console.log(rating + " ? " + review + " ? " + userId + " ? " + productId);
+
+    let realReview = null;
+
+    if (review !== "") {
+      realReview = await Reviews.create({
+        user: userId,
+        rating,
+        review,
+        product: productId,
+      });
+      product.reviews.push(realReview._id);
+      user.reviews.push(realReview._id);
+    }
+
     product.numberOfRatings += 1;
     if (rating === 5) product.numberOf5StarRatings += 1;
     if (rating === 4) product.numberOf4StarRatings += 1;
@@ -420,9 +457,9 @@ exports.addReview = async function (req, res) {
     if (rating === 2) product.numberOf2StarRatings += 1;
     if (rating === 1) product.numberOf1StarRatings += 1;
 
-    user.reviews.push(realReview._id);
     await product.save();
     await user.save();
+
     res.status(200).json({
       status: "success",
       data: {
@@ -430,13 +467,13 @@ exports.addReview = async function (req, res) {
       },
     });
   } catch (err) {
-    console.log(err);
+    console.log("Review Error:", err);
     res.status(500).json({ message: "Internal server error" });
   }
 };
 
 exports.addToWishlist = async function (req, res) {
-  console.log("hello add");
+  // console.log("hello add");
   try {
     const userId = req.user._id;
     const productId = req.params.id;
@@ -453,14 +490,14 @@ exports.addToWishlist = async function (req, res) {
       },
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json({ message: "Couldn't add to wishlist" });
   }
 };
 
 exports.removeFromWishlist = async function (req, res) {
   try {
-    console.log("hello remmove");
+    // console.log("hello remmove");
     const userId = req.user._id;
     const productId = req.params.id;
 
@@ -486,7 +523,7 @@ exports.removeFromWishlist = async function (req, res) {
       },
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json({ message: "Couldn't remove from wishlist" });
   }
 };
@@ -507,7 +544,7 @@ exports.getAllReviews = async function (req, res) {
       },
     });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -594,5 +631,43 @@ exports.myOrders = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.updateProduct = async (req, res) => {
+  // res.status(200).json({
+  //   status: "success",
+  // });
+  try {
+    const product = req.body;
+    // console.log("here" + req.body + product);
+    // console.log(product.discount + " it did enter");
+
+    const realProduct = await Product.findById(product._id);
+    if (!realProduct) {
+      return res
+        .status(404)
+        .json({ status: "failure", message: "Product not found" });
+    }
+
+    // Update individual fields (you can also use Object.assign or a loop)
+    // realProduct.productName = product.productName;
+    realProduct.stock = product.stock;
+    realProduct.discount = product.discount;
+    realProduct.price = product.price;
+    // Add more fields as needed
+
+    await realProduct.save(); // ✅ Save the document
+
+    res.status(200).json({
+      status: "success",
+      data: realProduct,
+    });
+  } catch (err) {
+    // console.error(err);
+    res.status(400).json({
+      status: "failure",
+      error: err.message,
+    });
   }
 };

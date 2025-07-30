@@ -20,15 +20,23 @@ export default function AddProduct({ removeWindow }) {
   async function handleAddProduct(e) {
     // console.log("HERE");
     e.preventDefault();
-    setProduct({
-      ...product,
-      productCategory: [...tags],
-      productImage: [...fileName],
-    });
+
+    product.productCategory = tags;
+    product.productImage = fileName;
+    // console.log(
+    //   tags +
+    //     fileName +
+    //     "here+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" +
+    //     product.productCategory +
+    //     product.productImage
+    // );
     try {
       const token = localStorage.getItem("seller-jwt");
       if (!token || isTokenExpired(token)) {
       }
+      // console.log("Product:", product); // native object logging
+      // console.log("Product as JSON:", JSON.stringify(product, null, 2)); // pretty-printed
+
       const res = await fetch("http://127.0.0.1:8000/api/product/addProduct", {
         method: "POST",
         headers: {
@@ -119,7 +127,7 @@ export default function AddProduct({ removeWindow }) {
           <input
             className="px-3 h-full w-50p rounded-lg bg-secondary outline-none"
             placeholder="Price"
-            value={product.productPrice}
+            // value={product.productPrice}
             onChange={(e) =>
               setProduct({ ...product, productPrice: e.target.value })
             }
@@ -127,7 +135,7 @@ export default function AddProduct({ removeWindow }) {
           <input
             className="px-3 h-full w-50p rounded-lg bg-secondary outline-none"
             placeholder="Discount%"
-            value={product.discount}
+            // value={product.discount}
             onChange={(e) =>
               setProduct({ ...product, discount: e.target.value })
             }

@@ -2,10 +2,15 @@ import { useNavigate } from "react-router-dom";
 import NavBarBuyer from "../components/NavBarBuyer";
 import UserFotter from "../components/UserFotter";
 import { useEffect, useState } from "react";
+import RateProduct from "../components/RateProduct";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
+  const [window, setWindow] = useState("");
+  function closeWindow() {
+    setWindow("");
+  }
   useEffect(() => {
     try {
       async function getOrders() {
@@ -40,10 +45,15 @@ function Orders() {
       </div>
     );
   }
+  // console.log(window + "+++++this");
   return (
     <div className="min-h-screen w-screen border-2 border-black flex flex-col justify-between items-center">
       <NavBarBuyer />
-      <div className="flex flex-col justify-between  flex-grow w-[90%] md:w-[70%] py-10">
+      {/* <div className="w-full h-full flex justify-center items-center relative"> */}
+      <div className=" relative flex flex-col justify-between  flex-grow w-[90%] md:w-[70%] py-10">
+        {window !== "" && (
+          <RateProduct productId={window} closeWindow={closeWindow} />
+        )}
         <div className="border-b-2 border-black text-2xl text-left px-5 py-3">
           Your Orders
         </div>
@@ -130,7 +140,10 @@ function Orders() {
                 </div>
               </div>
               <div className=" w-[20%] flex justify-center items-center text-base">
-                <div className="text-xs md:text-base rounded-md py-1 px-2 md:px-3 bg-secondary wrap-nowrap">
+                <div
+                  className="text-xs md:text-base rounded-md py-1 px-2 md:px-3 bg-secondary wrap-nowrap"
+                  onClick={() => setWindow(item.product._id)}
+                >
                   Rate Product
                 </div>
               </div>
@@ -138,6 +151,7 @@ function Orders() {
           ))}
         </div>
       </div>
+      {/* </div> */}
       <UserFotter />
     </div>
   );

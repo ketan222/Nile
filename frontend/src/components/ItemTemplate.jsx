@@ -4,6 +4,7 @@ export function ItemTemplate({ item }) {
   // console.log(item);
   const productId = item._id;
   const navigate = useNavigate();
+
   const handleAddToCart = async function () {
     try {
       if (!user) navigate("/login");
@@ -38,7 +39,12 @@ export function ItemTemplate({ item }) {
     }
   };
   return (
-    <div className="flex-none w-40 h-56 md:w-60 md:h-80 rounded-lg md:rounded-2xl overflow-hidden bg-white">
+    <div
+      className="flex-none w-40 h-56 md:w-60 md:h-80 rounded-lg md:rounded-2xl overflow-hidden bg-white"
+      onClick={() => {
+        navigate(`/getProduct/${productId}`);
+      }}
+    >
       <div className="w-full h-55p">
         <img
           src={`${item.productImage[0]}`}
@@ -48,7 +54,7 @@ export function ItemTemplate({ item }) {
       </div>
 
       <div className="text-base md:text-2xl mx-2 md:mt-2 text-left">
-        {item.productName.slice(0, 18) + "..."}
+        {item.productName.slice(0, 14) + "..."}
       </div>
       <div className="mx-2 text-xs md:text-base md:h-6 text-left">
         ⭐ ⭐ ⭐ ⭐ ⭐ ({item.rating.$numberDecimal})

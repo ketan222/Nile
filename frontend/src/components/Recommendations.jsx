@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function Recommendations({ recommendations }) {
   const navigate = useNavigate();
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState([]);
   useEffect(() => {
     const fetchProducts = async () => {
       const res = await fetch(
@@ -22,16 +22,17 @@ function Recommendations({ recommendations }) {
         return;
       }
       const data = await res.json();
-      // console.log("++++++++++++++" + data);
-      setProducts(data.data.products);
+      // console.log(data.data.products);
+      setProducts(...[data.data.products]);
+      console.log(products);
     };
     fetchProducts();
   }, [recommendations]);
-  if (!products) {
+  if (products.length === 0) {
     console.log("No products found");
     return null;
   }
-  // console.log(products);
+  console.log(products, "here");
   return (
     <div className="flex flex-col items-center justify-center h-auto w-screen gap-5 md:gap-10 pt-10 :pt-28 pb-3 md:pb-10 ">
       <div className="test-xl md:text-3xl font-bold">
