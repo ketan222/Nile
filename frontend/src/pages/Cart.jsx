@@ -58,7 +58,7 @@ function Cart() {
       setLoading(false);
     }
   }
-  console.log(cart, " cart");
+  // console.log(cart, " cart");
   if (loading) {
     return (
       <div className="min-h-screen w-screen flex flex-col justify-between items-center">

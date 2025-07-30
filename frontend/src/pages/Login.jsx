@@ -14,7 +14,7 @@ function Login() {
     // if (user) {
     async function chkToken() {
       try {
-        console.log("Checking token validity...");
+        // console.log("Checking token validity...");
         if (!localStorage.getItem("user-jwt")) {
           throw new Error("No token found");
         }
@@ -27,13 +27,13 @@ function Login() {
         });
         if (!resp.ok) throw new Error("Token is not valid");
         const data = await resp.json();
-        console.log("Token is valid, user data:", data);
+        // console.log("Token is valid, user data:", data);
         // if (user !== data.data.user) throw new Error("User mismatch");
         loginBuyer(data.user);
         // console.log("User logged in:", data.user);
         navigate("/home");
       } catch (err) {
-        console.log(err.message);
+        // console.log(err.message);
         localStorage.removeItem("user-jwt");
       }
     }
@@ -44,17 +44,17 @@ function Login() {
   // console.log("User in login:", user);
 
   return (
-    <div className="flex justify-around w-screen h-screen bg-[url('../public/BG/LOGIN-BG.png')] bg-cover bg-center font-sans">
+    <div className="flex justify-around w-screen h-screen bg-[url('/BG/LOGIN-BG.png')] bg-cover bg-center font-sans">
       <div className="h-screen w-6/12 flex justify-center items-center">
         <div className="w-6/12 h-3/4  shadow-lg">
           <div className="w-full h-15p flex justify-center items-center my-2 font-bold">
-            <Link
+            {/* <Link
               to="/some-path"
               className="w-5/6 h-75p text-black shadow-md hover:text-black rounded-full flex justify-around px-3 items-center text-xl transition-all duration-500"
             >
               <div className='bg-[url("../public/logo/Google-logo-without-name.png")] bg-cover bg-center w-22p h-80p'></div>
               <div>Sign in with google</div>
-            </Link>
+            </Link> */}
           </div>
           <div className=" mx-auto w-90p border-b border-gray-500 mb-6"></div>
           <div className="w-full h-70p flex items-center flex-col">
@@ -123,7 +123,7 @@ function Login() {
 
                     localStorage.setItem("user-jwt", data.token);
                     loginBuyer(data.data.user);
-                    console.log("Login successful:", user);
+                    // console.log("Login successful:", user);
                     navigate("/");
                   } catch (error) {
                     console.error("Error during login:", error);

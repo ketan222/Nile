@@ -38,7 +38,7 @@ function Category() {
             onClick={() => handleCategory(index)}
           >
             <img
-              src={`../../public/category/${category}.png`}
+              src={`/category/${category}.png`}
               alt=""
               className="w-full h-full object-contain"
             />

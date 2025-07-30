@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 function BuyNow() {
   const navigate = useNavigate();
   const currCart = JSON.parse(localStorage.getItem("cart"));
-  console.log(currCart);
+  // console.log(currCart);
   if (!currCart) console.log("No cart found");
   useEffect(() => {
     return () => {
@@ -25,14 +25,14 @@ function BuyNow() {
   };
   async function handleBuyNow() {
     if (!currCart || currCart.length === 0) {
-      console.log("No items in cart");
+      // console.log("No items in cart");
       return;
     }
 
     try {
       // Step 1: Validate stock
       for (const product of currCart) {
-        console.log(product, " product");
+        // console.log(product, " product");
         const res = await fetch(
           `http://localhost:8000/api/product/getProduct/${product.product._id}`
         );
@@ -86,7 +86,7 @@ function BuyNow() {
       );
 
       const results = await Promise.all(orderPromises);
-      console.log("All orders placed successfully:", results);
+      // console.log("All orders placed successfully:", results);
       localStorage.removeItem("cart");
     } catch (error) {
       alert("Error placing order: " + error.message);

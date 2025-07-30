@@ -105,7 +105,7 @@ export default function SignUpSeller() {
   }, []);
 
   return (
-    <div className="flex justify-around w-screen h-screen bg-[url('../public/BG/LOGIN-BG.png')] bg-cover bg-center font-sans">
+    <div className="flex justify-around w-screen h-screen bg-[url('/BG/LOGIN-BG.png')] bg-cover bg-center font-sans">
       <div className="h-screen w-6/12 flex justify-center items-center">
         <div className="w-6/12 h-3/4  shadow-lg">
           <div className="w-full h-15p flex justify-center items-center my-2 font-bold">
@@ -113,7 +113,7 @@ export default function SignUpSeller() {
               to="/some-path"
               className="w-5/6 h-75p text-black shadow-md hover:text-black rounded-full flex justify-around px-3 items-center text-xl transition-all duration-500"
             >
-              <div className='bg-[url("../public/logo/Google-logo-without-name.png")] bg-cover bg-center w-22p h-80p'></div>
+              <div className='bg-[url("/logo/Google-logo-without-name.png")] bg-cover bg-center w-22p h-80p'></div>
               <div>Sign in with google</div>
             </Link>
           </div>

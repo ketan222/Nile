@@ -10,7 +10,7 @@ function NavBar({ setWindow }) {
         className="w-16 h-16 md:w-24 md:h-24 lg:w-48 lg:h-48  flex justify-center items-center "
       >
         <img
-          src="../../public/logo/NILE-LOGO-WITH-NAME-BG-REMOVED.png"
+          src="/logo/NILE-LOGO-WITH-NAME-BG-REMOVED.png"
           className="w-full h-full object-contain md:w-24 lg:w-32"
           alt="Logo"
         />

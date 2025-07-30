@@ -82,7 +82,7 @@ export default function LoginSeller() {
   }, []);
 
   return (
-    <div className="flex justify-around w-screen h-screen bg-[url('../public/BG/LOGIN-BG.png')] bg-cover bg-center font-sans">
+    <div className="flex justify-around w-screen h-screen bg-[url('/BG/LOGIN-BG.png')] bg-cover bg-center font-sans">
       <div className="h-screen w-6/12 flex justify-center items-center">
         <div className="w-6/12 h-3/4  shadow-lg">
           <div className="w-full h-15p flex justify-center items-end my-2 font-bold text-2xl">
