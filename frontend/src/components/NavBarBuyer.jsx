@@ -11,7 +11,7 @@ function NavBar() {
     <div className="w-screen max-h-[10%] flex justify-between items-center font-san  font-bold text-xs md:text-base lg:text-lg px-2 md:px-5 md:h-100p lg:px-7 ">
       <Link to="/" className="w-20  flex justify-center items-center">
         <img
-          src="../../public/logo/NILE-LOGO-WITH-NAME-BG-REMOVED.png"
+          src="/logo/NILE-LOGO-WITH-NAME-BG-REMOVED.png"
           className="w-full h-full object-contain md:w-24 lg:w-32"
           alt="Logo"
         />
