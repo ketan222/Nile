@@ -10,7 +10,7 @@ export default function AddProduct({ removeWindow }) {
     async function fetchProducts() {
       try {
         const resp = await fetch(
-          "http://127.0.0.1:8000/api/product/getProductsOfSeller",
+          "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/product/getProductsOfSeller",
           {
             method: "GET",
             headers: {
@@ -41,7 +41,7 @@ export default function AddProduct({ removeWindow }) {
         console.log(product._id);
         console.log(product);
         const resp = await fetch(
-          `http://127.0.0.1:8000/api/product/updateProduct/${product._id}`,
+          `https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/product/updateProduct/${product._id}`,
           {
             method: "PATCH",
             headers: {

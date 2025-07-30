@@ -21,13 +21,16 @@ function SignUp() {
         if (!localStorage.getItem("user-jwt")) {
           throw new Error("No token found");
         }
-        const resp = await fetch("http://127.0.0.1:8000/api/user/getUser", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("user-jwt"),
-          },
-        });
+        const resp = await fetch(
+          "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/user/getUser",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("user-jwt"),
+            },
+          }
+        );
         if (!resp.ok) throw new Error("Token is not valid");
         const data = await resp.json();
         console.log("Token is valid, user data:", data);
@@ -60,18 +63,21 @@ function SignUp() {
     // 🔐 Submit form logic goes here (e.g., fetch to backend)
     // console.log("Ready to send data:", { name, email, password });
     try {
-      const user = await fetch("http://localhost:8000/api/user/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name,
-          password: password,
-          email: email,
-          passwordConfirm: confirmPassword,
-        }),
-      });
+      const user = await fetch(
+        "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/user/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            password: password,
+            email: email,
+            passwordConfirm: confirmPassword,
+          }),
+        }
+      );
       if (!user.ok) {
         throw new Error("Error creating user");
       }

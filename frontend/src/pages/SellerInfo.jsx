@@ -33,13 +33,16 @@ export default function SellerInfo() {
           navigate("/loginSeller");
           return;
         }
-        const res = await fetch("http://127.0.0.1:8000/api/seller/myAccount", {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await fetch(
+          "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/seller/myAccount",
+          {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (!res.ok) {
           throw new Error("seller jwt issue");
         }
@@ -72,7 +75,7 @@ export default function SellerInfo() {
         return;
       }
       const res = await fetch(
-        "http://127.0.0.1:8000/api/seller/updatePassword",
+        "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/seller/updatePassword",
         {
           method: "POST",
           headers: {
@@ -107,16 +110,19 @@ export default function SellerInfo() {
         navigate("/loginSeller");
         return;
       }
-      const res = await fetch("http://127.0.0.1:8000/api/seller/updateEmail", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          email: seller.email,
-        }),
-      });
+      const res = await fetch(
+        "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/seller/updateEmail",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            email: seller.email,
+          }),
+        }
+      );
       if (!res.ok) {
         throw new Error("Cannot update the email");
       }
@@ -137,7 +143,7 @@ export default function SellerInfo() {
         return;
       }
       const res = await fetch(
-        "http://127.0.0.1:8000/api/seller/updateAccountHolderName",
+        "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/seller/updateAccountHolderName",
         {
           method: "POST",
           headers: {
@@ -169,7 +175,7 @@ export default function SellerInfo() {
         return;
       }
       const res = await fetch(
-        "http://127.0.0.1:8000/api/seller/updateAccountNumber",
+        "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/seller/updateAccountNumber",
         {
           method: "POST",
           headers: {
@@ -201,7 +207,7 @@ export default function SellerInfo() {
         return;
       }
       const res = await fetch(
-        "http://127.0.0.1:8000/api/seller/updateIfscCode",
+        "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/seller/updateIfscCode",
         {
           method: "POST",
           headers: {

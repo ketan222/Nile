@@ -34,7 +34,7 @@ function BuyNow() {
       for (const product of currCart) {
         // console.log(product, " product");
         const res = await fetch(
-          `http://localhost:8000/api/product/getProduct/${product.product._id}`
+          `https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/product/getProduct/${product.product._id}`
         );
         if (!res.ok) {
           throw new Error(`Failed to fetch product: ${product.product._id}`);

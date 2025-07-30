@@ -14,13 +14,16 @@ function Orders() {
   useEffect(() => {
     try {
       async function getOrders() {
-        const res = await fetch("http://127.0.0.1:8000/api/user/myOrders", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("user-jwt")}`,
-          },
-        });
+        const res = await fetch(
+          "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/user/myOrders",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("user-jwt")}`,
+            },
+          }
+        );
 
         if (!res.ok) {
           throw new Error("Failed to fetch orders");
@@ -114,7 +117,7 @@ function Orders() {
                       //   console.log(aa);
                       //   console.log(ItemTemplate.product._id);
                       const res = await fetch(
-                        `http://127.0.0.1:8000/api/product/getProduct/${item.product._id}`,
+                        `https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/product/getProduct/${item.product._id}`,
                         {
                           method: "GET",
                           headers: {

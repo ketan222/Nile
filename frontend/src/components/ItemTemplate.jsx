@@ -18,7 +18,7 @@ export function ItemTemplate({ item }) {
       }
 
       const resp = await fetch(
-        `http://localhost:8000/api/product/addToCart/${productId}`,
+        `https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/product/addToCart/${productId}`,
         {
           method: "PATCH",
           headers: {
@@ -73,7 +73,7 @@ export function ItemTemplate({ item }) {
               quantity: 1,
             };
             const resp = await fetch(
-              `http://127.0.0.1:8000/api/product/getProduct/${item._id}`,
+              `hhttps://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/product/getProduct/${item._id}`,
               {
                 method: "GET",
                 headers: {

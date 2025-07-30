@@ -9,13 +9,16 @@ function Cart() {
   useEffect(() => {
     try {
       const getCart = async () => {
-        const response = await fetch("http://localhost:8000/api/user/myCart", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("user-jwt")}`,
-          },
-        });
+        const response = await fetch(
+          "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/user/myCart",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("user-jwt")}`,
+            },
+          }
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch cart");
         }
@@ -35,7 +38,7 @@ function Cart() {
       setLoading(true);
       async function updateQuantity() {
         const fetchCart = await fetch(
-          `http://localhost:8000/api/user/CartProductChgQuantity/${id}`,
+          `https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/user/CartProductChgQuantity/${id}`,
           {
             method: "PATCH",
             headers: {

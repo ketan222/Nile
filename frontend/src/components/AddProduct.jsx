@@ -37,14 +37,17 @@ export default function AddProduct({ removeWindow }) {
       // console.log("Product:", product); // native object logging
       // console.log("Product as JSON:", JSON.stringify(product, null, 2)); // pretty-printed
 
-      const res = await fetch("http://127.0.0.1:8000/api/product/addProduct", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(product),
-      });
+      const res = await fetch(
+        "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/product/addProduct",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(product),
+        }
+      );
       if (!res.ok) {
         throw new Error("Failed to add product");
       }

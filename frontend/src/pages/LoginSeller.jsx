@@ -26,16 +26,19 @@ export default function LoginSeller() {
     }
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/seller/login", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
+      const res = await fetch(
+        "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/seller/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        }
+      );
       if (!res.ok) {
         throw new Error("Error logging in seller");
       }
@@ -58,13 +61,16 @@ export default function LoginSeller() {
         if (!localStorage.getItem("seller-jwt")) {
           throw new Error("No token found");
         }
-        const resp = await fetch("http://127.0.0.1:8000/api/seller/myAccount", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("seller-jwt"),
-          },
-        });
+        const resp = await fetch(
+          "https://nile-4d52m5q2a-ketan222s-projects.vercel.app/api/seller/myAccount",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("seller-jwt"),
+            },
+          }
+        );
         if (!resp.ok) throw new Error("Token is not valid");
         const data = await resp.json();
         console.log("Token is valid, seller data:", data);
