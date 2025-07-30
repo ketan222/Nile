@@ -19,7 +19,7 @@ function Login() {
           throw new Error("No token found");
         }
         const resp = await fetch(
-          "https://nile-lime.vercel.app/api/user/getUser",
+          "https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/user/getUser",
           {
             method: "GET",
             headers: {
@@ -104,7 +104,7 @@ function Login() {
 
                   try {
                     const response = await fetch(
-                      "https://nile-lime.vercel.app/api/user/login",
+                      "https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/user/login",
                       {
                         method: "POST",
                         credentials: "include",

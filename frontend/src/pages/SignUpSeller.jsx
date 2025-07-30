@@ -43,7 +43,7 @@ export default function SignUpSeller() {
 
     try {
       const res = await fetch(
-        "https://nile-lime.vercel.app/api/seller/signup",
+        "https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/seller/signup",
         {
           method: "POST",
           headers: {
@@ -85,7 +85,7 @@ export default function SignUpSeller() {
           throw new Error("No token found");
         }
         const resp = await fetch(
-          "https://nile-lime.vercel.app/api/seller/myAccount",
+          "https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/seller/myAccount",
           {
             method: "GET",
             headers: {

@@ -39,7 +39,7 @@ export default function Product() {
       }
 
       const response = await fetch(
-        `https://nile-lime.vercel.app/api/product/addToWishlist/${productId}`,
+        `https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/product/addToWishlist/${productId}`,
         {
           method: "POST",
           headers: {
@@ -72,7 +72,7 @@ export default function Product() {
       }
 
       const response = await fetch(
-        `https://nile-lime.vercel.app/api/product/removeFromWishlist/${productId}`,
+        `https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/product/removeFromWishlist/${productId}`,
         {
           method: "POST",
           headers: {
@@ -105,7 +105,7 @@ export default function Product() {
       }
 
       const resp = await fetch(
-        `https://nile-lime.vercel.app/api/product/addToCart/${productId}`,
+        `https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/product/addToCart/${productId}`,
         {
           method: "PATCH",
           headers: {
@@ -131,7 +131,7 @@ export default function Product() {
     const fetchProduct = async function () {
       try {
         const response = await fetch(
-          `https://nile-lime.vercel.app/api/product/getProduct/${productId}`,
+          `https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/product/getProduct/${productId}`,
           {
             method: "GET",
           }
@@ -250,7 +250,7 @@ export default function Product() {
                     quantity: 1,
                   };
                   const resp = await fetch(
-                    `https://nile-lime.vercel.app/api/product/getProduct/${product._id}`,
+                    `https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/product/getProduct/${product._id}`,
                     {
                       method: "GET",
                       headers: {

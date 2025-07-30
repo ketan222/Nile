@@ -9,7 +9,7 @@ function Recommendations({ recommendations }) {
   useEffect(() => {
     const fetchProducts = async () => {
       const res = await fetch(
-        `https://nile-lime.vercel.app/api/product/${recommendations}`,
+        `https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/product/${recommendations}`,
         {
           method: "GET",
           headers: {

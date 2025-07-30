@@ -18,7 +18,7 @@ export function ItemTemplate({ item }) {
       }
 
       const resp = await fetch(
-        `https://nile-lime.vercel.app/api/product/addToCart/${productId}`,
+        `https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/product/addToCart/${productId}`,
         {
           method: "PATCH",
           headers: {
@@ -73,7 +73,7 @@ export function ItemTemplate({ item }) {
               quantity: 1,
             };
             const resp = await fetch(
-              `hhttps://nile-lime.vercel.app/api/product/getProduct/${item._id}`,
+              `hhttps://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/product/getProduct/${item._id}`,
               {
                 method: "GET",
                 headers: {

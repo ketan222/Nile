@@ -8,7 +8,7 @@ export default function RateProduct({ productId, closeWindow }) {
       if (rating == -1) return;
       //   setRating((prev) => prev + 1);
       const resp = await fetch(
-        `https://nile-lime.vercel.app/api/product/addReview/${productId}`,
+        `https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/product/addReview/${productId}`,
         {
           method: "POST",
           headers: {

@@ -38,7 +38,7 @@ export default function AddProduct({ removeWindow }) {
       // console.log("Product as JSON:", JSON.stringify(product, null, 2)); // pretty-printed
 
       const res = await fetch(
-        "https://nile-lime.vercel.app/api/product/addProduct",
+        "https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/product/addProduct",
         {
           method: "POST",
           headers: {

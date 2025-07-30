@@ -34,7 +34,7 @@ export default function SellerInfo() {
           return;
         }
         const res = await fetch(
-          "https://nile-lime.vercel.app/api/seller/myAccount",
+          "https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/seller/myAccount",
           {
             method: "GET",
             headers: {
@@ -75,7 +75,7 @@ export default function SellerInfo() {
         return;
       }
       const res = await fetch(
-        "https://nile-lime.vercel.app/api/seller/updatePassword",
+        "https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/seller/updatePassword",
         {
           method: "POST",
           headers: {
@@ -111,7 +111,7 @@ export default function SellerInfo() {
         return;
       }
       const res = await fetch(
-        "https://nile-lime.vercel.app/api/seller/updateEmail",
+        "https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/seller/updateEmail",
         {
           method: "POST",
           headers: {
@@ -143,7 +143,7 @@ export default function SellerInfo() {
         return;
       }
       const res = await fetch(
-        "https://nile-lime.vercel.app/api/seller/updateAccountHolderName",
+        "https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/seller/updateAccountHolderName",
         {
           method: "POST",
           headers: {
@@ -175,7 +175,7 @@ export default function SellerInfo() {
         return;
       }
       const res = await fetch(
-        "https://nile-lime.vercel.app/api/seller/updateAccountNumber",
+        "https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/seller/updateAccountNumber",
         {
           method: "POST",
           headers: {
@@ -207,7 +207,7 @@ export default function SellerInfo() {
         return;
       }
       const res = await fetch(
-        "https://nile-lime.vercel.app/api/seller/updateIfscCode",
+        "https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/seller/updateIfscCode",
         {
           method: "POST",
           headers: {

@@ -10,7 +10,7 @@ export default function AddProduct({ removeWindow }) {
     async function fetchProducts() {
       try {
         const resp = await fetch(
-          "https://nile-lime.vercel.app/api/product/getProductsOfSeller",
+          "https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/product/getProductsOfSeller",
           {
             method: "GET",
             headers: {
@@ -41,7 +41,7 @@ export default function AddProduct({ removeWindow }) {
         console.log(product._id);
         console.log(product);
         const resp = await fetch(
-          `https://nile-lime.vercel.app/api/product/updateProduct/${product._id}`,
+          `https://nile-r07t8zhyd-ketan222s-projects.vercel.app/api/product/updateProduct/${product._id}`,
           {
             method: "PATCH",
             headers: {
